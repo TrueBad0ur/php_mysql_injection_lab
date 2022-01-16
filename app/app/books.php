@@ -37,9 +37,9 @@ if ($_GET['book'] != "") {
    //$res_u = mysqli_query($conn, "SELECT author FROM books WHERE bookname='War and Peace'");
    mysqli_select_db($conn, "myDB");
 
-   //$res = mysqli_query($conn, "SELECT author FROM books where bookname='War and Piece'");
+
    $res = mysqli_query($conn, "SELECT * FROM books WHERE bookname like '%" . $bookname . "%'");
-   //$res = mysqli_query($conn, "SELECT * FROM books WHERE bookname like 'War'  FROM users");
+
    if (!$res) {
 ?>
    <tr height="50">
@@ -48,6 +48,7 @@ if ($_GET['book'] != "") {
 <?php
    }
    if (mysqli_num_rows($res) != 0) {
+      //print_r(mysqli_num_rows($res));
       while ($row = mysqli_fetch_array($res)) {
 ?>
       <table>

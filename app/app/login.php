@@ -15,13 +15,13 @@ if ($conn->connect_error) {
 mysqli_select_db($conn, "myDB");
 $username = $_POST["username"];
 $password = $_POST["password"];
-echo $username;
-echo $password;
+//echo $username;
+//echo $password;
 
 $res = mysqli_query($conn, "INSERT IGNORE INTO users (login, password) VALUES ('$username', '$password')");
 
 $res_u = mysqli_query($conn, "SELECT username FROM users WHERE username='$username'");
-print_r(mysqli_num_rows($res_u));
+//print_r(mysqli_num_rows($res_u));
 if (mysqli_num_rows($res_u) == 0) {
    echo 'Sorry... no such user';
 } else {

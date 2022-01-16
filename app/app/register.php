@@ -17,13 +17,13 @@
    //echo $password;
 
    $res_u = mysqli_query($conn, "SELECT username FROM users WHERE username='$username'");
-   print_r(mysqli_num_rows($res_u));
+   //print_r(mysqli_num_rows($res_u));
    if (mysqli_num_rows($res_u) > 0) {
       echo 'Sorry... username already taken';
    } else {
    	$query = "INSERT INTO users (username, password) VALUES ('$username', '".md5($password)."')";
    	$results = mysqli_query($conn, $query);
-   	echo 'Saved!';
+   	echo 'You were registered';
    	exit();
    }
 
