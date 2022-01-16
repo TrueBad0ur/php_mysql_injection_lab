@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+  app:
+    image: ubuntu:latest
+    stdin_open: true
+    tty: true
+    build: ./app/
+    working_dir: /app
+
+    ports:
+      - '127.0.0.1:8000:8000'
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.16
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:5.7
+    #restart: always
+    environment:
+      #MYSQL_DATABASE: 'db'
+      #MYSQL_USER: 'user'
+      #MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: '1231'
+      MYSQL_ROOT_HOST: '%'
+    networks:
+      static-network:
+        ipv4_address: 172.20.0.15
+    ports:
+      - '127.0.0.1:3306:3306'
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=1231 --execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 30s
+      retries: 10
+
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
